@@ -1,5 +1,5 @@
 import pytest
-import src.data_manager as data_manager
+import data_manager
 
 def test_none_get_training_data():
     """

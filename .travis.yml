@@ -1,2 +1,5 @@
   language: python
   script: pytest
+  install: 
+	-pip install -q scipy
+	-pip install -q numpy
