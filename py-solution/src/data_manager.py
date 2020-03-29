@@ -2,7 +2,7 @@ import scipy.io
 #scipy for .mat file
 
 # save name of a file with data
-__mat_file_name__ = "data/digit_data.mat"
+__mat_file_name__ = '../data/digit_data.mat'
 
 def get_training_data():
     """
