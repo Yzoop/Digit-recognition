@@ -28,10 +28,11 @@ def test_gradient_big_values():
     max_value = 2
 
     my_theta = gradient.get_initialized_gradient(test_width, test_height)
-    assert  __is_any_value_huge__(my_theta, max_value) == False
+    assert __is_any_value_huge__(my_theta, max_value) == False
+
 
 def test_gradient_invariant():
     test_width = 35
     # determinant can be counted only for square matrixes
     gradient_determinant = np.linalg.det(gradient.get_initialized_gradient(test_width, test_width))
-    assert gradient_determinant == 0
+    assert gradient_determinant != 0
