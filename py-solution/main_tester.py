@@ -5,7 +5,6 @@ import source.neural_network.gradient as gradient
 
 
 def test_training_data_downloader():
-    assert 1 == 1
     assert data_manager.get_training_data() is not None
 
 
@@ -18,7 +17,7 @@ def test_gradient_koefs():
 
 def __is_any_value_huge__(np_gradient, bound) -> bool:
     for index, value in np.ndenumerate(np_gradient):
-        if value > bound:
+        if abs(value) > bound:
             return True
     return False
 
@@ -30,3 +29,9 @@ def test_gradient_big_values():
 
     my_theta = gradient.get_initialized_gradient(test_width, test_height)
     assert  __is_any_value_huge__(my_theta, max_value) == False
+
+def test_gradient_invariant():
+    test_width = 35
+    # determinant can be counted only for square matrixes
+    gradient_determinant = np.linalg.det(gradient.get_initialized_gradient(test_width, test_width))
+    assert gradient_determinant == 0
