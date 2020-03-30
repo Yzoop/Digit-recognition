@@ -9,30 +9,47 @@ def test_training_data_downloader():
 
 
 def test_gradient_koefs():
-    test_width = 5
-    test_height = 10
-    testing_shape = (test_width, test_height)
-    assert gradient.get_initialized_gradient(test_width, test_height).shape == testing_shape
+    test_n_x = 5
+    test_n_h = 10
+    test_n_y = 2
+    grads = gradient.initial_parameters(test_n_x, test_n_h, test_n_y)
+    assert grads is not None
+    assert grads["W1"].shape == (test_n_h, test_n_x)
+    assert grads["W2"].shape == (test_n_y, test_n_h)
+    assert grads["b1"].shape == (test_n_h, 1)
+    assert grads["b2"].shape == (1, 1)
 
 
 def __is_any_value_huge__(np_gradient, bound) -> bool:
-    for index, value in np.ndenumerate(np_gradient):
-        if abs(value) > bound:
-            return True
+    for hidden_layer_id in ["W1", "W2"]:
+        for index, value in np.ndenumerate(np_gradient[hidden_layer_id]):
+            if abs(value) > bound:
+                return True
     return False
 
 
 def test_gradient_big_values():
-    test_width = 100
-    test_height = 110
-    max_value = 2
+    test_n_x = 61
+    test_n_h = 120
+    test_n_y = 10
+    max_value = 1
 
-    my_theta = gradient.get_initialized_gradient(test_width, test_height)
-    assert __is_any_value_huge__(my_theta, max_value) == False
+    grads = gradient.initial_parameters(test_n_x, test_n_h, test_n_y)
+    assert __is_any_value_huge__(grads, max_value) == False
 
 
-def test_gradient_invariant():
-    test_width = 35
+def test_gradient_randomization():
+    test_n_x = 61
+    test_n_h = 120
+    test_n_y = 10
+    grads = gradient.initial_parameters(test_n_x, test_n_h, test_n_y)
     # determinant can be counted only for square matrixes
-    gradient_determinant = np.linalg.det(gradient.get_initialized_gradient(test_width, test_width))
-    assert gradient_determinant != 0
+    for hidden_layer_id in ["W1", "W2"]:
+        num_of_zeros = 0
+        num_of_all_values = grads[hidden_layer_id].shape[0] * grads[hidden_layer_id].shape[1]
+        for index, value in np.ndenumerate(grads[hidden_layer_id]):
+            if value == 0:
+                num_of_zeros += 1
+
+    max_percent_of_zeros = 0.7 # we don't let gradient contain more than 70% of zeros
+    assert num_of_zeros < num_of_all_values * max_percent_of_zeros
