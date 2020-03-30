@@ -1,11 +1,11 @@
 from urllib import request
-from numpy import genfromtxt
+import numpy as np
 import csv
 
 # save name of a file with data
 TRAINING_DATA_LINK = 'https://raw.githubusercontent.com/Yzoop/Digit-recognition/master/py-solution/source/data_management/training_data.csv'
 TRAINING_DATA_LOCAL = 'data_management/training_data.csv'
-
+NUM_OF_LABELS = 10
 
 def get_training_data():
     """
@@ -17,8 +17,8 @@ def get_training_data():
     Returns: dictionary with X and y
     """
     response = request.urlopen(TRAINING_DATA_LINK)
-    training_data = genfromtxt(response, delimiter=',')
-    y = training_data[0, :]
+    training_data = np.genfromtxt(response, delimiter=',')
+    y = np.array(np.mat(training_data[0, :]), subok=True)
     X = training_data[1:, :]
     training_data_dict = {'y' : y, 'X' : X}
 
@@ -44,9 +44,20 @@ def get_local_training_data():
                  8 - 8
                  9 - 9
     """
-    local_training_data = genfromtxt(TRAINING_DATA_LOCAL, delimiter=',')
-    y = local_training_data[0, :]
+    local_training_data = np.genfromtxt(TRAINING_DATA_LOCAL, delimiter=',')
+    y = np.array(local_training_data[0, :], ndmin=2)
+    for index, val in np.ndenumerate(y):
+        y[index[0], index[1]] = 0 if y[index[0], index[1]] == 10 else y[index[0], index[1]]
     X = local_training_data[1:, :]
     training_data_dict = {'y' : y, 'X' : X}
 
     return training_data_dict
+
+
+def get_binary_matrix(Y, num_of_labels=NUM_OF_LABELS):
+    assert Y.shape[0] == 1 #is vector
+    binary_matrix = np.zeros((num_of_labels, Y.shape[1]))
+    for index, value in np.ndenumerate(Y):
+        i = index[0], index[1]
+        binary_matrix[int(Y[0, index[1]]), index[1]] = 1.0
+    return binary_matrix

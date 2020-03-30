@@ -1,9 +1,9 @@
 import numpy as np
 
-SMALLER_KOEF = 0.01
+epsilon_init = 0.12 #(sqrt(6) / (sqrt(L_in + L_out))
 
 def __get_initialized_gradient__(width, height):
-    return np.random.randn(width, height) * SMALLER_KOEF #so as to fast learning algotihm
+    return np.random.rand(width, height) * 2 * epsilon_init - epsilon_init#so as to fast learning algotihm
 
 def initial_parameters(n_x, n_h, n_y):
     """
@@ -22,7 +22,7 @@ def initial_parameters(n_x, n_h, n_y):
     W1 = __get_initialized_gradient__(n_h, n_x)
     b1 = np.zeros((n_h, 1))
     W2 = __get_initialized_gradient__(n_y, n_h)
-    b2 = np.zeros((1, 1))
+    b2 = np.zeros((n_y, 1))
 
     parameters = {"W1": W1,
                   "b1": b1,
