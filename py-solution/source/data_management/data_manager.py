@@ -1,9 +1,9 @@
+from urllib import request
 from numpy import genfromtxt
-import os
-#scipy for .mat file
+import csv
 
 # save name of a file with data
-TRAINING_DATA = 'data_management/training_data.csv'
+TRAINING_DATA_LINK = 'https://raw.githubusercontent.com/Yzoop/Digit-recognition/master/py-solution/source/data_management/training_data.csv'
 
 def get_training_data():
     """
@@ -12,7 +12,8 @@ def get_training_data():
     Description: This function is used for reading and taking training data
                  (digit images)
     """
-    print(os.getcwd())
-    training_data = genfromtxt(TRAINING_DATA,delimiter=',')
+    response = request.urlopen(TRAINING_DATA_LINK)
+    training_data = genfromtxt(response, delimiter=',')
+
 
     return training_data
