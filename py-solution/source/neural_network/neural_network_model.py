@@ -6,6 +6,8 @@ import source.neural_network.__propagations__ as __propagations__
 import source.neural_network.__cost__ as __cost__
 
 
+last_cost = 0
+
 """
 Here we use neural network with 2 hidden layers
 
@@ -23,13 +25,12 @@ def nn_model(X, Y, n_h, num_iterations=800, print_cost=False):
     Returns:
     parameters -- parameters learnt by the model. They can then be used to predict.
     """
-
+    global last_cost
     NUMBER_OF_LABELS = 10  # from 0 to 9
     INPUT_LAYER_SIZE = 400  # as 20 * 20 = 400
 
     # Initialize parameters
     parameters =  __gradient__.initial_parameters(INPUT_LAYER_SIZE, n_h, NUMBER_OF_LABELS)
-
     # Loop (gradient descent)
     for i in range(0, num_iterations):
 
@@ -37,7 +38,7 @@ def nn_model(X, Y, n_h, num_iterations=800, print_cost=False):
         A2, cache = __propagations__.forward_propagation(X, parameters)
 
         # Cost function. Inputs: "A2, Y, parameters". Outputs: "cost".
-        cost = __cost__.compute_cost(A2, Y, parameters)
+        last_cost = cost = __cost__.compute_cost(A2, Y, parameters)
 
         # Backpropagation. Inputs: "parameters, cache, X, Y". Outputs: "grads".
         grads = __propagations__.backward_propagation(parameters, cache, X, Y)
@@ -50,3 +51,6 @@ def nn_model(X, Y, n_h, num_iterations=800, print_cost=False):
             print("Cost after iteration %i: %f" % (i, cost))
 
     return parameters
+
+def get_last_cost():
+    return last_cost
