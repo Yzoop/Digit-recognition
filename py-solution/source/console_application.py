@@ -18,14 +18,14 @@ def start_main(num_iter=800):
     #print("Successfully learned!")
 
 
-if __name__ == "__main__":
-    bot = telegram.Bot(my_bot_api)
+#if __name__ == "__main__":
+bot = telegram.Bot(my_bot_api)
 
-    if bot.get_updates():
-        chat_id = bot.get_updates()[-1].message.chat_id
-        num_iters = 10000
-        bot.send_message(chat_id, "Started telegram data science. Neural network started with " + str(num_iters))
-        start_main(num_iters)
-        bot.send_message(chat_id, "Finished!!!")
-        bot.send_message(chat_id, "Last cost: " + str(neural_network_model.last_cost))
+if bot.get_updates():
+    chat_id = bot.get_updates()[-1].message.chat_id
+    num_iters = 10000
+    bot.send_message(chat_id, "Started telegram data science. Neural network started with " + str(num_iters))
+    start_main(num_iters)
+    bot.send_message(chat_id, "Finished!!!")
+    bot.send_message(chat_id, "Last cost: " + str(neural_network_model.last_cost))
 
