@@ -3,8 +3,6 @@ import source.neural_network.neural_network_model as neural_network_model
 import telegram
 my_bot_api = '789233533:AAEbAUNs6bVfenwByVWcyRn4HGh-knlTzVs'
 
-import PIL
-
 
 def start_main(num_iter=800):
     # start program with reading training data
