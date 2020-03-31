@@ -6,7 +6,7 @@ my_bot_api = '789233533:AAEbAUNs6bVfenwByVWcyRn4HGh-knlTzVs'
 
 def start_main(num_iter=800):
     # start program with reading training data
-    training_data = data_manager.get_local_training_data()  # first column is Y and other columns are X data (GRAY SCALE)
+    training_data = data_manager.get_training_data()  # first column is Y and other columns are X data (GRAY SCALE)
 
     # initialize by random small values gradient
     print("Please, wait: the neural network is being learned")

@@ -18,9 +18,12 @@ def get_training_data():
     """
     response = request.urlopen(TRAINING_DATA_LINK)
     training_data = np.genfromtxt(response, delimiter=',')
-    y = np.array(np.mat(training_data[0, :]), subok=True)
+    y = np.array(training_data[0, :], ndmin=2)
+    for index, val in np.ndenumerate(y):
+        y[index[0], index[1]] = 0 if y[index[0], index[1]] == 10 else y[index[0], index[1]]
     X = training_data[1:, :]
     training_data_dict = {'y' : y, 'X' : X}
+
 
     return training_data_dict
 
