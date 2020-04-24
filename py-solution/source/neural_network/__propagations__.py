@@ -2,6 +2,11 @@ import numpy as np
 from source.neural_network.__sigmoid__ import sigmoid
 from source.data_management.data_manager import get_binary_matrix
 
+__activation_function__ = np.tanh
+
+def set_up_activation_function(activation_function):
+    __activation_function__ = activation_function
+
 def forward_propagation(X, parameters):
     """
     Argument:
@@ -20,7 +25,7 @@ def forward_propagation(X, parameters):
 
     # Implement Forward Propagation to calculate A2 (probabilities)
     Z1 = np.dot(W1, X) + b1
-    A1 = np.tanh(Z1)
+    A1 = __activation_function__(Z1)
     Z2 = np.dot(W2, A1) + b2
     A2 = sigmoid(Z2)
 

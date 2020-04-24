@@ -6,10 +6,10 @@ import source.neural_network.__gradient__ as gradient
 import source.__saved_test_data__ as saved_data
 
 def test_gradient_koefs():
-    test_n_x = 5
-    test_n_h = 10
-    test_n_y = 2
-    grads = gradient.initial_parameters(test_n_x, test_n_h, test_n_y)
+    test_n_x :  5
+    test_n_h :  10
+    test_n_y :  2
+    grads :  gradient.initial_parameters(test_n_x, test_n_h, test_n_y)
     assert grads is not None
     assert grads["W1"].shape == (test_n_h, test_n_x)
     assert grads["W2"].shape == (test_n_y, test_n_h)
