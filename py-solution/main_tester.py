@@ -5,11 +5,12 @@ import source.neural_network.__propagations__ as propagations
 import source.neural_network.__gradient__ as gradient
 import source.__saved_test_data__ as saved_data
 
+
 def test_gradient_koefs():
-    test_n_x :  5
-    test_n_h :  10
-    test_n_y :  2
-    grads :  gradient.initial_parameters(test_n_x, test_n_h, test_n_y)
+    test_n_x= 5
+    test_n_h= 10
+    test_n_y= 2
+    grads= gradient.initial_parameters(test_n_x, test_n_h, test_n_y)
     assert grads is not None
     assert grads["W1"].shape == (test_n_h, test_n_x)
     assert grads["W2"].shape == (test_n_y, test_n_h)
@@ -48,9 +49,8 @@ def test_gradient_randomization():
             if value == 0:
                 num_of_zeros += 1
 
-    max_percent_of_zeros = 0.7 # we don't let gradient contain more than 70% of zeros
+    max_percent_of_zeros = 0.7  # we don't let gradient contain more than 70% of zeros
     assert num_of_zeros < num_of_all_values * max_percent_of_zeros
-
 
 
 def test_init_params():
@@ -70,7 +70,7 @@ def test_init_params():
 def test_forward_propagation():
     np.random.seed(2)
     n_x = 4
-    m = 10 #num of examples
+    m = 10  # num of examples
     X = np.random.randn(n_x, m)
     A2, cache = propagations.forward_propagation(X, saved_data.get_saved_parameters())
     saved_cache = saved_data.get_saved_cache()
