@@ -5,4 +5,5 @@ python:
 install:
   - pip install -r requirements.txt
 # command to run tests
-script: pytest py-solution/main_tester.py
+script: pytest py-solution/main_tester.py py-solution/source/console_application.py
+
