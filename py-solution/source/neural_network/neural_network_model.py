@@ -25,8 +25,9 @@ Here we use neural network with 2 hidden layers
 
 Images we use: 20x20 (it's possible to change later)
 """
-def start_nn_model_learning(X, Y, n_h, optimization_algorithm_name,
-                            activation_function_name=ACTIVATION_TANH, num_iterations=800 ,
+def start_nn_model_learning(X, Y, nn_architecture:list, optimization_algorithm_name,
+                            activation_function_name, num_iterations,
+                            learning_rate,
                             print_cost_function=None):
     """
     Arguments:
@@ -42,9 +43,9 @@ def start_nn_model_learning(X, Y, n_h, optimization_algorithm_name,
     global last_cost
     NUMBER_OF_LABELS = 10  # from 0 to 9
     INPUT_LAYER_SIZE = 400  # as 20 * 20 = 400
-
+    nn_architecture = [INPUT_LAYER_SIZE] + nn_architecture + [NUMBER_OF_LABELS]
     # Initialize parameters
-    parameters =  __gradient__.initial_parameters(INPUT_LAYER_SIZE, n_h, NUMBER_OF_LABELS)
+    parameters =  __gradient__.initialize_parameters_deep(nn_architecture)
     ## set up optimization algorithm for better learning
     optimization_algorithm = __gradient_descent__
     if (optimization_algorithm_name == OPTIMIZATION_GRADIENT_DESCENT):
@@ -61,34 +62,37 @@ def start_nn_model_learning(X, Y, n_h, optimization_algorithm_name,
         activation_module = __sigmoid__
     elif (activation_function_name == ACTIVATION_RELU):
         activation_module = __relu__
+
     # Loop (gradient descent)
     for i in range(0, num_iterations):
 
         # Forward propagation. Inputs: "X, parameters". Outputs: "A2, cache".
-        A2, cache = __propagations__.forward_propagation(X, parameters)
+        AL, caches = __propagations__.L_model_forward(X, parameters)
 
         # Cost function. Inputs: "A2, Y, parameters". Outputs: "cost".
-        current_cost = __cost__.compute_cost(A2, Y, parameters)
+        current_cost = __cost__.compute_cost(AL, Y)
 
         # Backpropagation. Inputs: "parameters, cache, X, Y". Outputs: "grads".
-        grads = __propagations__.backward_propagation(parameters, cache, X, Y)
+        grads = __propagations__.L_model_backward(AL, Y, caches)
 
         # Gradient descent parameter update. Inputs: "parameters, grads". Outputs: "parameters".
-        parameters = optimization_algorithm.update_parameters(parameters, grads)
+        parameters = optimization_algorithm.update_parameters(parameters, grads, learning_rate)
 
         # Print the cost every 1000 iterations
-        if print_cost_function is not None and i % 50 == 0:
-            print_cost_function(current_cost)
+        if print_cost_function is not None and i % 10 == 0:
+            print(str(current_cost))
+            #print_cost_function(current_cost)
 
     return parameters
 
 def preprocess_neural_network(dict_argument):
     start_nn_model_learning(X=dict_argument['X'],
                             Y=dict_argument['Y'],
-                            n_h=dict_argument['n_h'],
                             optimization_algorithm_name=dict_argument['optimization_algorithm_name'],
+                            nn_architecture=dict_argument['nn_architecture'],
                             activation_function_name=dict_argument['activation_function_name'],
                             num_iterations=dict_argument['num_iterations'],
+                            learning_rate=dict_argument['learning_rate'],
                             print_cost_function=dict_argument['print_cost_function']
                             )
 

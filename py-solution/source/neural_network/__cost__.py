@@ -1,7 +1,7 @@
 import numpy as np
 from source.data_management.data_manager import get_binary_matrix
 
-def compute_cost(A2, Y, parameters):
+def compute_cost(AL, Y):
     """
     Computes the cross-entropy cost given in equation (13)
 
@@ -40,8 +40,8 @@ def compute_cost(A2, Y, parameters):
     #
     # cost = 1 / m * sum_M
 
-    logprobs = np.multiply(y_binary, np.log(A2)) + np.multiply((1 - y_binary), np.log(1 - A2))
-    cost = - 1 / m * np.sum(logprobs)
+    logprobs = np.multiply(-y_binary, np.log(AL)) - np.multiply((1 - y_binary), np.log(1 - AL))
+    cost = 1 / m * np.sum(logprobs)
 
     cost = float(np.squeeze(cost))  # makes sure cost is the dimension we expect.
     # E.g., turns [[17]] into 17

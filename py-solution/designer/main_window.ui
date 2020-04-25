@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>722</width>
-    <height>1091</height>
+    <width>934</width>
+    <height>913</height>
    </rect>
   </property>
   <property name="font">
@@ -98,42 +98,51 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
-            <widget class="QRadioButton" name="radio_button_gradient_descent">
-             <property name="accessibleName">
-              <string>gradient_descent</string>
+            <widget class="QGroupBox" name="groupBox_2">
+             <property name="title">
+              <string/>
              </property>
-             <property name="text">
-              <string>Градиентный спуск</string>
-             </property>
-             <property name="autoExclusive">
-              <bool>true</bool>
-             </property>
-             <property name="autoRepeatDelay">
-              <number>0</number>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QRadioButton" name="radio_buttion_batch_gradient_descent">
-             <property name="accessibleName">
-              <string>batch_gradient_descent</string>
-             </property>
-             <property name="autoFillBackground">
-              <bool>false</bool>
-             </property>
-             <property name="text">
-              <string>Пакетный градиентный спуск</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QRadioButton" name="radio_button_stochastic_gradient_descent">
-             <property name="accessibleName">
-              <string>stochastic_gradient_descent</string>
-             </property>
-             <property name="text">
-              <string>Стохастический градиентный спуск</string>
-             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_8">
+              <item>
+               <widget class="QRadioButton" name="radio_button_stochastic_gradient_descent">
+                <property name="accessibleName">
+                 <string>stochastic_gradient_descent</string>
+                </property>
+                <property name="text">
+                 <string>Стохастический градиентный спуск</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="radio_button_gradient_descent">
+                <property name="accessibleName">
+                 <string>gradient_descent</string>
+                </property>
+                <property name="text">
+                 <string>Градиентный спуск</string>
+                </property>
+                <property name="autoExclusive">
+                 <bool>true</bool>
+                </property>
+                <property name="autoRepeatDelay">
+                 <number>0</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="radio_buttion_batch_gradient_descent">
+                <property name="accessibleName">
+                 <string>batch_gradient_descent</string>
+                </property>
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
+                <property name="text">
+                 <string>Пакетный градиентный спуск</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
            <item>
@@ -234,7 +243,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QTableWidget" name="table_neuron_architecture"/>
+            <widget class="QTableWidget" name="table_neuron_architecture">
+             <property name="autoScrollMargin">
+              <number>2</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -247,11 +260,11 @@
           <property name="flat">
            <bool>false</bool>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
            <item>
-            <widget class="QRadioButton" name="radio_button_relu">
+            <widget class="QRadioButton" name="radio_button_tanh">
              <property name="text">
-              <string>ReLU</string>
+              <string>Tanh</string>
              </property>
             </widget>
            </item>
@@ -263,9 +276,9 @@
             </widget>
            </item>
            <item>
-            <widget class="QRadioButton" name="radio_button_tanh">
+            <widget class="QRadioButton" name="radio_button_relu">
              <property name="text">
-              <string>Tanh</string>
+              <string>ReLU</string>
              </property>
             </widget>
            </item>
@@ -351,15 +364,12 @@
           <property name="styleSheet">
            <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
 border-color: rgb(170, 85, 255);
-color: rgb(0, 170, 0);</string>
+color: rgb(0, 170, 0);r</string>
           </property>
           <property name="text">
            <string>Начать обучение нейронной сети</string>
           </property>
          </widget>
-        </item>
-        <item>
-         <widget class="QGraphicsView" name="graphicsView"/>
         </item>
         <item>
          <widget class="QGroupBox" name="groupbox_current_loss_function">
