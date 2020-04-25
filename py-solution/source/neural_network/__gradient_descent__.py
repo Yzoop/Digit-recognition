@@ -1,39 +1,24 @@
 # GRADED FUNCTION: update_parameters
-
-def update_parameters(parameters, grads, learning_rate=1.2):
+def update_parameters(parameters, grads, learning_rate):
     """
-    Updates parameters using the gradient descent update rule given above
+    Update parameters using gradient descent
 
     Arguments:
     parameters -- python dictionary containing your parameters
-    grads -- python dictionary containing your gradients
+    grads -- python dictionary containing your gradients, output of L_model_backward
 
     Returns:
     parameters -- python dictionary containing your updated parameters
+                  parameters["W" + str(l)] = ...
+                  parameters["b" + str(l)] = ...
     """
-    # Retrieve each parameter from the dictionary "parameters"
-    ### START CODE HERE ### (≈ 4 lines of code)
-    W1 = parameters["W1"]
-    b1 = parameters["b1"]
-    W2 = parameters["W2"]
-    b2 = parameters["b2"]
+
+    L = len(parameters) // 2  # number of layers in the neural network
+
+    # Update rule for each parameter. Use a for loop.
+    ### START CODE HERE ### (≈ 3 lines of code)
+    for l in range(L):
+        parameters["W" + str(l + 1)] -= learning_rate * grads["dW" + str(l + 1)]
+        parameters["b" + str(l + 1)] -= learning_rate * grads["db" + str(l + 1)]
     ### END CODE HERE ###
-
-    # Retrieve each gradient from the dictionary "grads"
-    dW1 = grads["dW1"]
-    db1 = grads["db1"]
-    dW2 = grads["dW2"]
-    db2 = grads["db2"]
-
-    # Update rule for each parameter
-    W1 = W1 - learning_rate * dW1
-    b1 = b1 - learning_rate * db1
-    W2 = W2 - learning_rate * dW2
-    b2 = b2 - learning_rate * db2
-
-    parameters = {"W1": W1,
-                  "b1": b1,
-                  "W2": W2,
-                  "b2": b2}
-
     return parameters

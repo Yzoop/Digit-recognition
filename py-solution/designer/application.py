@@ -4,8 +4,6 @@ from PyQt5 import QtWidgets, QtCore
 from designer import main_window_design
 from source.application_source.my_qt_thread_worker import ThreadWorker
 from source.application_source import file_preprocess
-from source.data_management import data_manager
-
 
 class DigitRecognitionApp(QtWidgets.QMainWindow, main_window_design.Ui_MainWindow, QtCore.QRunnable):
     threadpool = None
@@ -25,6 +23,7 @@ class DigitRecognitionApp(QtWidgets.QMainWindow, main_window_design.Ui_MainWindo
         ACTIVATION_FUNCTION: None,
         OVERFITTING_ASSISTANT: {NAME: None, REGULARIZATION_PARAM: None}
     }
+    __cost_graphic__ = []
 
     def __init__(self):
         super().__init__()
@@ -61,17 +60,18 @@ class DigitRecognitionApp(QtWidgets.QMainWindow, main_window_design.Ui_MainWindo
         self.neural_network_params[self.NEURAL_NETWORK_ARCHITECTURE] = network_from_table
 
     def print_to_console(self, cost):
-        print(cost)
+        self.label_say_here_loss_function.setText(str(cost))
 
     def start_learning(self):
         self.set_up_neural_network_from_table()
         print(self.neural_network_params)
         args = {'X' : self.training_data['X'],
                 'Y':self.training_data['y'],
-                'n_h':20,
+                'nn_architecture': self.neural_network_params[self.NEURAL_NETWORK_ARCHITECTURE],
                 'optimization_algorithm_name':self.neural_network_params[self.OPTIMIZATION_ALGORITHM],
                 'activation_function_name':self.neural_network_params[self.ACTIVATION_FUNCTION],
-                'num_iterations':200,
+                'num_iterations': 800,
+                'learning_rate': self.neural_network_params[self.OPTIMIZATION_ALGORITHM][self.GRADIENT_LEARNING_RATE],
                 'print_cost_function':self.print_to_console}
         nn_thread = ThreadWorker(neural_network_model.preprocess_neural_network, args)
         nn_thread.set_function_on_finish(self.print_to_console)

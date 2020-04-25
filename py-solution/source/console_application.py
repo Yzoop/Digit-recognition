@@ -14,9 +14,11 @@ def start_main(num_iter=800):
     print("Please, wait: the neural network is being learned")
     parameters = neural_network_model.start_nn_model_learning(X=training_data['X'],
                                                               Y=training_data['y'],
-                                                              n_h=25,
+                                                              nn_architecture=[25, 25],
                                                               optimization_algorithm_name=neural_network_model.OPTIMIZATION_GRADIENT_DESCENT,
+                                                              activation_function_name=neural_network_model.ACTIVATION_RELU,
                                                               num_iterations=num_iter,
+                                                              learning_rate=0.6,
                                                               print_cost_function=console_print_cost)
     #print("Successfully learned!")
 
