@@ -1,8 +1,5 @@
 [![Build Status](https://travis-ci.com/Yzoop/Digit-recognition.svg?branch=master)](https://travis-ci.com/Yzoop/Digit-recognition)
-# Digit-recognition
-This repository contains a solution for a real problem of digit recognition.
-A windows application with digit recognition using deep learning <b>from scratch</b>
-
-Using this repository, one may train L-layer neural networks with sigmoid/tanh activations from scratch for a 10-class problem of digits recognition.
-Also in this Digit-recognition repository a multi-threading application is available for testing a trained model.
+# Распознавание цифр
+Проект по созданию нейронной сети с нуля для проблемы распознавания цифр (MNIST). Для этого было реализовано 2 многопоточных приложения: обучение нейронной сети и тестирование.
+Используя этот репозиторий, вы можете создавать многослойные нейронные сети с сигмоидальными/tanh функциями активании для распознавания рукописных цифр.
 ![alt text](https://imgur.com/qhUi6eO.jpg)
