@@ -1,4 +1,4 @@
 scipy==1.4.1
-numpy==1.17.4
+numpy==1.22.0
 python-telegram-bot==12.5.1
 requests==2.23.0
